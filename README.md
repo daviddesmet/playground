@@ -1,2 +1,3 @@
-# playground
-My personal playground
+# Playground
+
+My personal playground with Proof of concept (PoC) projects, code examples, project demos, ...
