@@ -4,4 +4,4 @@ My personal playground with proof of concept (PoC) projects, code examples, proj
 
 ### Content
 
-- ASP.NET Core + Vue.js: TOTP & WebAuthn
+- ASP.NET Core + Vue.js: TOTP & WebAuthn (coming soon)
