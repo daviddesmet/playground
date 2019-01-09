@@ -11,6 +11,7 @@ An ASP.NET Core RESTful API featuring InMemory storage with EF Core, an object-o
 ### Other Features
 
 - AutoMapper
+- Fluent Validation
 - Serilog
 - Swagger
 
