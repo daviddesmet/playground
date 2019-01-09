@@ -19,6 +19,14 @@ A Vue.js + TypeScript and Vuetify SPA project scaffolded with Vue CLI 3.
 - RxJS
 - VueCookies
 
+## URI
+
+The app will be served on:
+
+```
+https://localhost:8080/
+```
+
 ## Project setup
 
 ```
