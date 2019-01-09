@@ -1,4 +1,4 @@
-# ASP.NET Core 2.2 Backend: TOTP Demo
+# ASP.NET Core 2.2 Backend: TOTP Playground
 
 ## Features
 
