@@ -1,4 +1,23 @@
-# Vue.js Frontend: TOTP Demo
+# Vue.js Frontend: TOTP Playground
+
+## Features
+
+A Vue.js + TypeScript and Vuetify SPA project scaffolded with Vue CLI 3.
+
+- Vue.js 2.5
+- Vue CLI 3
+- Vue Router
+- Vuex
+- Vuetify
+- TypeScript
+
+### Other Features
+
+- Axios
+- NProgress
+- QRCanvas
+- RxJS
+- VueCookies
 
 ## Project setup
 
