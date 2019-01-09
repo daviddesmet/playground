@@ -14,6 +14,14 @@ An ASP.NET Core RESTful API featuring InMemory storage with EF Core, an object-o
 - Serilog
 - Swagger
 
+## URI
+
+The app will be served on:
+
+```
+https://localhost:5000/
+```
+
 ## Project setup
 
 ```
