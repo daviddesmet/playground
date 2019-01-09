@@ -15,7 +15,6 @@ namespace Vue2API
     using Microsoft.AspNetCore.HttpsPolicy;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
