@@ -1,0 +1,172 @@
+﻿@page
+@using Newtonsoft.Json
+@model LoginWithSecurityKey
+@{
+    ViewData["Title"] = "Security Key authentication";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+<p>Your login is protected with a security key. Insert your security key to proceed.</p>
+<p>
+    Don't have access to your authenticator device? You can
+    <a id="recovery-code-login" asp-page="./LoginWithRecoveryCode" asp-route-returnUrl="@Model.ReturnUrl">log in with a recovery code</a>.
+</p>
+<div class="notification is-danger" style="display:none">
+    Please note: Your browser does not seem to support WebAuthn yet. <a href="https://caniuse.com/#search=webauthn" target="_blank">Supported browsers</a>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <form action="/LoginWithSecurityKey" method="post" id="signin">
+            <div class="field">
+                <div class="control">
+                    <button class="btn btn-primary">Authenticate key</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="~/js/helpers.js"></script>
+<script src="~/js/instant.js"></script>
+<script>
+    document.getElementById('signin').addEventListener('submit', handleSignInSubmit);
+
+    async function handleSignInSubmit(event) {
+        event.preventDefault();
+
+        // Challenge
+        // Like during registration, this must be cryptographically random bytes generated on the server.
+        let challengeBytesAsString = atob("@Html.Raw(Model.AuthChallenge.Base64Challenge)");
+        let challenge = new Uint8Array(challengeBytesAsString.length);
+        for (let i = 0; i < challengeBytesAsString.length; i++) {
+            challenge[i] = challengeBytesAsString.charCodeAt(i);
+        }
+
+        // RP ID
+        let rpId = "@Model.AuthChallenge.RelyingPartyId";
+
+        console.log("Relying Party", rpId);
+
+        // Allowed credentials
+        // This array tells the browser which credentials the server would like the user to authenticate with.
+        // The `credentialId` retrieved and saved during registration is passed in here.
+        // The server can optionally indicate what transports it prefers, like USB, NFC, and Bluetooth.
+        let keys = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.AuthChallenge.Base64KeyIds))');
+        let allowCredentials = [];
+
+        for (let i = 0; i < keys.length; i++) {
+            let keyIdBytesAsString = window.atob(keys[i]);
+
+            let key = new Uint8Array(keyIdBytesAsString.length);
+            for (let i = 0; i < keyIdBytesAsString.length; i++) {
+                key[i] = keyIdBytesAsString.charCodeAt(i);
+            }
+
+            allowCredentials.push({
+                type: "public-key",
+                id: key
+            });
+        }
+
+        console.log("Credentials", rpId);
+
+        Swal.fire({
+            title: 'Logging In...',
+            text: 'Tap your security key to login.',
+            imageUrl: "/images/securitykey.min.svg",
+            showCancelButton: true,
+            showConfirmButton: false,
+            focusConfirm: false,
+            focusCancel: false
+        });
+
+        // ask browser for credentials (browser will ask connected authenticators)
+        // The assertion object returned from the get() call is again a `PublicKeyCredential` object.
+        // It is slightly different from the object we received during registration;
+        // in particular, it includes a signature member, and does not include the public key.
+        let credential;
+        try {
+            credential = await navigator.credentials.get({ publicKey: { challenge, rpId, allowCredentials } })
+        } catch (err) {
+            showErrorAlert(err.message ? err.message : err);
+        }
+
+        // After the assertion has been obtained, it is sent to the server for validation.
+        let response;
+        try {
+            response = await verifyAssertionWithServer(credential);
+        } catch (e) {
+            showErrorAlert("Could not verify assertion", e);
+        }
+
+        // show error
+        if (response.status !== 200) {
+            let msg = await response.json();
+            console.log("Error doing assertion");
+            console.log(msg);
+            showErrorAlert(msg);
+            return;
+        }
+
+        // show success message
+        await Swal.fire({
+            title: 'Logged In!',
+            text: 'You\'re logged in successfully.',
+            type: 'success',
+            timer: 2000
+        });
+
+        window.location.href = "@Model.ReturnUrl";
+    }
+
+    async function verifyAssertionWithServer(assertedCredential) {
+        // base64 encode array buffers
+        let encodedResult = {
+            // The identifier for the credential that was used to generate the authentication assertion.
+            id: assertedCredential.id,
+            // The identifier again, but in binary form.
+            rawId: btoa(String.fromCharCode.apply(null, new Uint8Array(assertedCredential.rawId))),
+            // `public-key`
+            type: assertedCredential.type,
+            response: {
+                // The authenticator data is similar to the authData received during registration,
+                // with the notable exception that the public key is not included here.
+                authenticatorData:
+                    btoa(String.fromCharCode.apply(null, new Uint8Array(assertedCredential.response.authenticatorData))),
+                // The signature generated by the private key associated with this credential.
+                // On the server, the public key will be used to verify that this signature is valid.
+                signature:
+                    btoa(String.fromCharCode.apply(null, new Uint8Array(assertedCredential.response.signature))),
+                // This field is optionally provided by the authenticator, and represents the user.id that was supplied during registration.
+                // It can be used to relate this assertion to the user on the server.
+                userHandle:
+                    btoa(String.fromCharCode.apply(null, new Uint8Array(assertedCredential.response.userHandle))),
+                // As during registration, the clientDataJSON is a collection of the data passed from the browser to the authenticator.
+                clientDataJSON:
+                    btoa(String.fromCharCode.apply(null, new Uint8Array(assertedCredential.response.clientDataJSON)))
+            }
+        };
+
+        let response;
+        try {
+            response = await fetch("/CompleteSecurityKeyAuthentication", {
+                method: 'POST', // or 'PUT'
+                body: JSON.stringify(encodedResult), // data can be `string` or {object}!
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            console.log("Response from /CompleteSecurityKeyAuthentication", response);
+            //console.log("JSON Response from /CompleteSecurityKeyAuthentication", await response.json());
+
+        } catch (e) {
+            showErrorAlert("Request to server failed", e);
+            throw e;
+        }
+
+        return response;
+    }
+</script>
