@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore;
+﻿using System;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
 namespace WebAuthn
