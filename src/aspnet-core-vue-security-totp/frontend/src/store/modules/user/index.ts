@@ -11,7 +11,7 @@ export const state: UserState = {
   status: ""
 };
 
-const namespaced: boolean = true;
+const namespaced = true;
 
 export const user: Module<UserState, CoreState> = {
   namespaced,

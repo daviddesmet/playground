@@ -23,7 +23,10 @@ class AuthService extends BaseService {
       from(axios.post(`${this.api}/auth/login`, credentials))
         // TODO: use expires_in from response data to set the cookie expiration
         .pipe(
-          map((res: any): { status: number; token: string } => ({ status: res.status, token: res.data.auth_token }))
+          map((res: any): { status: number; token: string } => ({
+            status: res.status,
+            token: res.data.auth_token
+          }))
         )
         .pipe(catchError((error: any) => this.handleError(error.response)))
     );

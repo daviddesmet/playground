@@ -60,8 +60,7 @@ const router = new Router({
     {
       path: "/account/2fa/setup",
       name: "2fa",
-      component: () =>
-        lazyLoadView(import(/* webpackChunkName: "authenticatorsetup" */ "@/views/AuthenticatorSetup.vue")), // tslint:disable-line
+      component: () => lazyLoadView(import(/* webpackChunkName: "authenticatorsetup" */ "@/views/AuthenticatorSetup.vue")), // tslint:disable-line
       meta: {
         authRequired: true
       }
@@ -69,8 +68,7 @@ const router = new Router({
     {
       path: "/account/2fa/codes",
       name: "2fa-codes",
-      component: () =>
-        lazyLoadView(import(/* webpackChunkName: "authenticatorcodes" */ "@/views/AuthenticatorCodes.vue")), // tslint:disable-line
+      component: () => lazyLoadView(import(/* webpackChunkName: "authenticatorcodes" */ "@/views/AuthenticatorCodes.vue")), // tslint:disable-line
       meta: {
         authRequired: true
       }

@@ -1,6 +1,12 @@
 import { MutationTree } from "vuex";
 import { AuthState } from "./types";
-import { AUTH_REQUEST, AUTH_TWOFACTOR, AUTH_SUCCESS, AUTH_ERROR, AUTH_LOGOUT } from "./actions.type";
+import {
+  AUTH_REQUEST,
+  AUTH_TWOFACTOR,
+  AUTH_SUCCESS,
+  AUTH_ERROR,
+  AUTH_LOGOUT
+} from "./actions.type";
 
 export const mutations: MutationTree<AuthState> = {
   [AUTH_REQUEST]: (authState: AuthState) => {

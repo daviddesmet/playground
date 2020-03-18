@@ -5,18 +5,18 @@ Vue.use(VueCookies);
 const ID_TOKEN_KEY = "auth_token";
 
 export const getToken = (id = ID_TOKEN_KEY) => {
-  return Vue.cookies.get(id || ID_TOKEN_KEY);
+  return Vue.$cookies.get(id || ID_TOKEN_KEY);
   // return window.localStorage.getItem(id || ID_TOKEN_KEY);
 };
 
 export const saveToken = (token: string, id = ID_TOKEN_KEY) => {
   // TODO: Add cookie expiration (can be obtained from auth service)
-  Vue.cookies.set(id || ID_TOKEN_KEY, token);
+  Vue.$cookies.set(id || ID_TOKEN_KEY, token);
   // window.localStorage.setItem(id || ID_TOKEN_KEY, token);
 };
 
 export const destroyToken = (id = ID_TOKEN_KEY) => {
-  return Vue.cookies.remove(id || ID_TOKEN_KEY);
+  return Vue.$cookies.remove(id || ID_TOKEN_KEY);
   // window.localStorage.removeItem(id || ID_TOKEN_KEY);
 };
 

@@ -19,7 +19,16 @@ const getStatusColor = (status: Status): string => {
   }
 };
 
-export const log = (dispatch: any, title: string, message: string, status: Status) => {
+export const log = (
+  dispatch: any,
+  title: string,
+  message: string,
+  status: Status
+) => {
   const color = getStatusColor(status);
-  dispatch(`timeline/${UPDATE_TIMELINE}`, { title, message, color } as TimelineRecord, { root: true });
+  dispatch(
+    `timeline/${UPDATE_TIMELINE}`,
+    { title, message, color } as TimelineRecord,
+    { root: true }
+  );
 };

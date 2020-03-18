@@ -39,13 +39,21 @@ class ProfileService extends BaseService {
   }
 
   setAuthenticator(authenticator: Authenticator): Observable<any> {
-    return from(axios.post(`${this.api}/profile/authenticator`, authenticator, { withCredentials: true }))
+    return from(
+      axios.post(`${this.api}/profile/authenticator`, authenticator, {
+        withCredentials: true
+      })
+    )
       .pipe(map((res: any) => true))
       .pipe(catchError((error: any) => this.handleError(error.response)));
   }
 
   getAuthenticatorCodes(): Observable<any> {
-    return from(axios.get(`${this.api}/profile/authenticator/codes`, { withCredentials: true }))
+    return from(
+      axios.get(`${this.api}/profile/authenticator/codes`, {
+        withCredentials: true
+      })
+    )
       .pipe(map((res: any) => res.data))
       .pipe(catchError((error: any) => this.handleError(error.response)));
   }

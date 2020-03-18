@@ -11,7 +11,7 @@ export const state: TimelineState = {
   timeline: [] as TimelineRecord[]
 };
 
-const namespaced: boolean = true;
+const namespaced = true;
 
 export const timeline: Module<TimelineState, CoreState> = {
   namespaced,

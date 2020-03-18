@@ -7,9 +7,12 @@ import axios from "axios";
 // import VueCookies from "vue-cookies";
 
 import { getToken, parseToken } from "@/services/jwt.service";
+
 // import { AUTH_REFRESH_TOKEN, AUTH_LOGOUT } from "@/store/modules/auth/actions.type";
 
 import "../node_modules/nprogress/nprogress.css";
+
+import vuetify from "./plugins/vuetify";
 
 // Enable devtools
 Vue.config.devtools = process.env.NODE_ENV !== "production";
@@ -22,6 +25,7 @@ Vue.config.productionTip = process.env.NODE_ENV === "production";
 new Vue({
   store,
   router,
+  vuetify,
   render: h => h(App)
 }).$mount("#app");
 
