@@ -1,4 +1,4 @@
-# ASP.NET Core 3.1: TOTP & WebAuthn Playground
+# ASP.NET Core 5.0: TOTP & WebAuthn Playground
 
 ## Features
 
