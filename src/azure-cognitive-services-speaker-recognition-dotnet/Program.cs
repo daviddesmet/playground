@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.CognitiveServices.Speech;
 using Microsoft.CognitiveServices.Speech.Audio;
 
-namespace HelloWorld
+namespace SpeakerRecognition
 {
     class Program
     {

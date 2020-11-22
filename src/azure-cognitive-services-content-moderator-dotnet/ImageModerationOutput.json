@@ -1,0 +1,181 @@
+[
+  {
+    "ImageUrl": "https://moderatorsampleimages.blob.core.windows.net/samples/sample2.jpg",
+    "ImageModeration": {
+      "CacheID": "c89f741b-8033-454a-ba78-2e20586a9ee5_637416632665820157",
+      "Result": false,
+      "TrackingId": "USW2_ibiza_5b2b8551-c418-48bf-ab44-67074a66f136_ContentModerator.F0_4da8fe09-f7be-42e5-a45a-a3a241b29d47",
+      "AdultClassificationScore": 0.02185433730483055,
+      "IsImageAdultClassified": false,
+      "RacyClassificationScore": 0.04579134285449982,
+      "IsImageRacyClassified": false,
+      "AdvancedInfo": [
+        {
+          "Key": "ImageDownloadTimeInMs",
+          "Value": "318"
+        },
+        {
+          "Key": "ImageSizeInBytes",
+          "Value": "273405"
+        }
+      ],
+      "Status": {
+        "Code": 3000,
+        "Description": "OK",
+        "Exception": null
+      }
+    },
+    "TextDetection": {
+      "Status": {
+        "Code": 3000,
+        "Description": "OK",
+        "Exception": null
+      },
+      "Metadata": [
+        {
+          "Key": "ImageDownloadTimeInMs",
+          "Value": "80"
+        },
+        {
+          "Key": "ImageSizeInBytes",
+          "Value": "273405"
+        }
+      ],
+      "TrackingId": "USW2_ibiza_5b2b8551-c418-48bf-ab44-67074a66f136_ContentModerator.F0_bc825c9e-f1f9-4f7e-a7f9-80b3a3e269d5",
+      "CacheId": "b28e32e9-23cc-4521-a71a-fe474721c8ba_637416632679412904",
+      "Language": "eng",
+      "Text": "IF WE DID \r\nALL \r\nTHE THINGS \r\nWE ARE \r\nCAPABLE \r\nOF DOING, \r\nWE WOULD \r\nLITERALLY \r\nASTOUND \r\nOURSELVE \r\n",
+      "Candidates": []
+    },
+    "FaceDetection": {
+      "Status": {
+        "Code": 3000,
+        "Description": "OK",
+        "Exception": null
+      },
+      "TrackingId": "USW2_ibiza_5b2b8551-c418-48bf-ab44-67074a66f136_ContentModerator.F0_42a31b4d-4d52-4760-8a92-3bb72a9b7030",
+      "CacheId": "838b0aa1-bef1-4fb2-9f24-609db11f7995_637416632718011175",
+      "Result": false,
+      "Count": 0,
+      "AdvancedInfo": [
+        {
+          "Key": "ImageDownloadTimeInMs",
+          "Value": "56"
+        },
+        {
+          "Key": "ImageSizeInBytes",
+          "Value": "273405"
+        }
+      ],
+      "Faces": []
+    }
+  },
+  {
+    "ImageUrl": "https://moderatorsampleimages.blob.core.windows.net/samples/sample5.png",
+    "ImageModeration": {
+      "CacheID": "da18aa73-ecc0-4725-b4c5-3288dfa535f3_637416632733637776",
+      "Result": false,
+      "TrackingId": "USW2_ibiza_5b2b8551-c418-48bf-ab44-67074a66f136_ContentModerator.F0_759affe3-c8da-44c3-8634-049e48a07cdc",
+      "AdultClassificationScore": 0.0013530384749174118,
+      "IsImageAdultClassified": false,
+      "RacyClassificationScore": 0.0045312270522117615,
+      "IsImageRacyClassified": false,
+      "AdvancedInfo": [
+        {
+          "Key": "ImageDownloadTimeInMs",
+          "Value": "195"
+        },
+        {
+          "Key": "ImageSizeInBytes",
+          "Value": "2278902"
+        }
+      ],
+      "Status": {
+        "Code": 3000,
+        "Description": "OK",
+        "Exception": null
+      }
+    },
+    "TextDetection": {
+      "Status": {
+        "Code": 3000,
+        "Description": "OK",
+        "Exception": null
+      },
+      "Metadata": [
+        {
+          "Key": "ImageDownloadTimeInMs",
+          "Value": "122"
+        },
+        {
+          "Key": "ImageSizeInBytes",
+          "Value": "2278902"
+        }
+      ],
+      "TrackingId": "USW2_ibiza_5b2b8551-c418-48bf-ab44-67074a66f136_ContentModerator.F0_cd1dcf79-3d4a-47ae-828b-18d40e0333f9",
+      "CacheId": "180e5d50-8e37-45f0-b669-a6fc78cf13af_637416632749122307",
+      "Language": "eng",
+      "Text": "",
+      "Candidates": []
+    },
+    "FaceDetection": {
+      "Status": {
+        "Code": 3000,
+        "Description": "OK",
+        "Exception": null
+      },
+      "TrackingId": "USW2_ibiza_5b2b8551-c418-48bf-ab44-67074a66f136_ContentModerator.F0_496251a0-7b9b-4719-bd38-ec804e771bae",
+      "CacheId": "e338756c-bf91-4c4b-9bf6-f4970067a635_637416632780594902",
+      "Result": true,
+      "Count": 6,
+      "AdvancedInfo": [
+        {
+          "Key": "ImageDownloadTimeInMs",
+          "Value": "102"
+        },
+        {
+          "Key": "ImageSizeInBytes",
+          "Value": "2278902"
+        }
+      ],
+      "Faces": [
+        {
+          "Bottom": 598,
+          "Left": 44,
+          "Right": 268,
+          "Top": 374
+        },
+        {
+          "Bottom": 620,
+          "Left": 308,
+          "Right": 532,
+          "Top": 396
+        },
+        {
+          "Bottom": 575,
+          "Left": 594,
+          "Right": 773,
+          "Top": 396
+        },
+        {
+          "Bottom": 563,
+          "Left": 812,
+          "Right": 955,
+          "Top": 420
+        },
+        {
+          "Bottom": 611,
+          "Left": 972,
+          "Right": 1151,
+          "Top": 432
+        },
+        {
+          "Bottom": 510,
+          "Left": 1232,
+          "Right": 1456,
+          "Top": 286
+        }
+      ]
+    }
+  }
+]
