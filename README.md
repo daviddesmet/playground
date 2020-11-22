@@ -6,15 +6,16 @@ My personal playground with proof of concept (PoC) projects, code examples, proj
 
 #### Azure AI
 
-- [Cognitive Services - Speech to Text in .NET 5](src/azure-cognitive-services-speech-dotnet)
-- [Cognitive Services - Speech to Text in Python](src/azure-cognitive-services-speech-python)
-- [Cognitive Services - Speaker Recognition in .NET 5](src/azure-cognitive-services-speaker-recognition-dotnet)
-- [Cognitive Services - Content Moderator in .NET 5](src/azure-cognitive-services-content-moderator-dotnet)
-- [Cognitive Services - Content Moderator in Python](src/azure-cognitive-services-content-moderator-python)
-- [Cognitive Services - Language Understanding Intelligent Service (LUIS) in .NET 5](src/azure-cognitive-services-luis-dotnet)
-- [Cognitive Services - Language Understanding Intelligent Service (LUIS) in Python](src/azure-cognitive-services-luis-python)
-- [Cognitive Services - Text Analytics in .NET 5](src/azure-cognitive-services-text-analytics-dotnet)
-- [Cognitive Services - Text Analytics in Python](src/azure-cognitive-services-text-analytics-python)
+- Cognitive Services
+  - [Speech to Text - .NET 5](src/azure-cognitive-services-speech-dotnet)
+  - [Speech to Text - Python](src/azure-cognitive-services-speech-python)
+  - [Speaker Recognition - .NET 5](src/azure-cognitive-services-speaker-recognition-dotnet)
+  - [Content Moderator - .NET 5](src/azure-cognitive-services-content-moderator-dotnet)
+  - [Content Moderator - Python](src/azure-cognitive-services-content-moderator-python)
+  - [Language Understanding Intelligent Service (LUIS) - .NET 5](src/azure-cognitive-services-luis-dotnet)
+  - [Language Understanding Intelligent Service (LUIS) - Python](src/azure-cognitive-services-luis-python)
+  - [Text Analytics - .NET 5](src/azure-cognitive-services-text-analytics-dotnet)
+  - [Text Analytics - Python](src/azure-cognitive-services-text-analytics-python)
 
 #### Security
 
