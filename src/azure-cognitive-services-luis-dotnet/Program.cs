@@ -7,7 +7,7 @@ using Microsoft.Azure.CognitiveServices.Language.LUIS.Runtime;
 using Microsoft.Azure.CognitiveServices.Language.LUIS.Runtime.Models;
 using Newtonsoft.Json;
 
-namespace ContentModerator
+namespace LanguageUnderstanding
 {
     public class Program
     {
