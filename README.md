@@ -8,6 +8,7 @@ My personal playground with proof of concept (PoC) projects, code examples, proj
 
 - [Cognitive Services - Speech to Text in .NET 5](src/azure-cognitive-services-speech-dotnet)
 - [Cognitive Services - Speech to Text in Python](src/azure-cognitive-services-speech-python)
+- [Cognitive Services - Speaker Recognition in .NET 5](src/azure-cognitive-services-speaker-recognition-dotnet)
 
 #### Security
 
