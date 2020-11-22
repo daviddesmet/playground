@@ -11,6 +11,8 @@ My personal playground with proof of concept (PoC) projects, code examples, proj
 - [Cognitive Services - Speaker Recognition in .NET 5](src/azure-cognitive-services-speaker-recognition-dotnet)
 - [Cognitive Services - Content Moderator in .NET 5](src/azure-cognitive-services-content-moderator-dotnet)
 - [Cognitive Services - Content Moderator in Python](src/azure-cognitive-services-content-moderator-python)
+- [Cognitive Services - Language Understanding Intelligent Service (LUIS) in .NET 5](src/azure-cognitive-services-luis-dotnet)
+- [Cognitive Services - Language Understanding Intelligent Service (LUIS) in Python](src/azure-cognitive-services-luis-python)
 
 #### Security
 
