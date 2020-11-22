@@ -16,6 +16,6 @@ My personal playground with proof of concept (PoC) projects, code examples, proj
 
 #### Security
 
-- [ASP.NET Core 3.1 Razor Pages: TOTP & WebAuthn](src/aspnet-core-razor-pages-security-webauthn)
-- [ASP.NET Core + Vue.js: TOTP](src/aspnet-core-vue-security-totp)
+- [ASP.NET Core 5.0 Razor Pages: TOTP & WebAuthn](src/aspnet-core-razor-pages-security-webauthn)
+- [ASP.NET Core 2.2 + Vue.js: TOTP](src/aspnet-core-vue-security-totp) (outdated)
 - ASP.NET Core + Vue.js: TOTP & WebAuthn (coming soon)

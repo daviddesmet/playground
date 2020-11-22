@@ -33,6 +33,9 @@
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
+        [TempData]
+        public string[] RecoveryCodes { get; set; }
+
         public IActionResult Index()
         {
             return View();
@@ -61,6 +64,12 @@
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
 
             await _userManager.SetTwoFactorEnabledAsync(user, true);
+
+            if (await _userManager.CountRecoveryCodesAsync(user) == 0)
+            {
+                var recoveryCodes = await _userManager.GenerateNewTwoFactorRecoveryCodesAsync(user, 10);
+                RecoveryCodes = recoveryCodes.ToArray();
+            }
 
             return Ok();
         }

@@ -8,7 +8,7 @@ Azure Cognitive Services - Language Understanding Intelligent Service (LUIS) in 
 pip install azure-cognitiveservices-language-luis
 ```
 
-Expected output:
+**Expected output:**
 
 ```json
 {

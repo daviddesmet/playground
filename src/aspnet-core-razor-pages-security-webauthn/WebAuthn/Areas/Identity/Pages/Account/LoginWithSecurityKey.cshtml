@@ -71,6 +71,7 @@
 
         console.log("Credentials", rpId);
 
+        /*
         Swal.fire({
             title: 'Logging In...',
             text: 'Tap your security key to login.',
@@ -80,6 +81,7 @@
             focusConfirm: false,
             focusCancel: false
         });
+        */
 
         // ask browser for credentials (browser will ask connected authenticators)
         // The assertion object returned from the get() call is again a `PublicKeyCredential` object.
@@ -109,6 +111,7 @@
             return;
         }
 
+        /*
         // show success message
         await Swal.fire({
             title: 'Logged In!',
@@ -116,6 +119,7 @@
             type: 'success',
             timer: 2000
         });
+        */
 
         window.location.href = "@Model.ReturnUrl";
     }

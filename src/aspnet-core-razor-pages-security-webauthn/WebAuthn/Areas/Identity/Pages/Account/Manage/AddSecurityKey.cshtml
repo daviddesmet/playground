@@ -98,6 +98,7 @@
 
         console.log("Credential Options", makeCredentialOptions);
 
+        /*
         Swal.fire({
             title: 'Registering...',
             text: 'Tap your security key to finish registration.',
@@ -107,6 +108,7 @@
             focusConfirm: false,
             focusCancel: false
         });
+        */
 
         console.log("Creating PublicKeyCredential...");
         console.log(navigator);
@@ -172,6 +174,7 @@
             return;
         }
 
+        /*
         // show success
         Swal.fire({
             title: 'Registration Successful!',
@@ -179,8 +182,9 @@
             type: 'success',
             timer: 2000
         });
+        */
 
-        window.location.href = "/Identity/Account/Manage/GenerateRecoveryCodes";
+        window.location.href = "/Identity/Account/Manage/ShowRecoveryCodes";
     }
 
     async function registerCredentialWithServer(formData) {

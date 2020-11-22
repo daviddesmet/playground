@@ -77,6 +77,8 @@ namespace WebAuthn
                     .AddNewtonsoftJson(); // Actual version of Fido requires it!
 
             services.AddRazorPages();
+
+            services.AddDatabaseDeveloperPageExceptionFilter();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,7 +87,7 @@ namespace WebAuthn
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                app.UseMigrationsEndPoint();
             }
             else
             {
