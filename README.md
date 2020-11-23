@@ -4,18 +4,36 @@ My personal playground with proof of concept (PoC) projects, code examples, proj
 
 ### Content
 
-#### Azure AI
+#### Azure AI - [Cognitive Services](https://azure.microsoft.com/en-us/services/cognitive-services)
 
-- Cognitive Services
-  - [Speech to Text - .NET 5](src/azure-cognitive-services-speech-dotnet)
-  - [Speech to Text - Python](src/azure-cognitive-services-speech-python)
-  - [Speaker Recognition - .NET 5](src/azure-cognitive-services-speaker-recognition-dotnet)
+- Decision
+  - Anomaly Detector (coming soon)
   - [Content Moderator - .NET 5](src/azure-cognitive-services-content-moderator-dotnet)
   - [Content Moderator - Python](src/azure-cognitive-services-content-moderator-python)
+
+- Speech
+  - [Speech to Text - .NET 5](src/azure-cognitive-services-speech-dotnet)
+  - [Speech to Text - Python](src/azure-cognitive-services-speech-python)
+  - Text to Speech (coming soon)
+  - [Speaker Recognition - .NET 5](src/azure-cognitive-services-speaker-recognition-dotnet)
+
+- Language
   - [Language Understanding Intelligent Service (LUIS) - .NET 5](src/azure-cognitive-services-luis-dotnet)
   - [Language Understanding Intelligent Service (LUIS) - Python](src/azure-cognitive-services-luis-python)
   - [Text Analytics - .NET 5](src/azure-cognitive-services-text-analytics-dotnet)
   - [Text Analytics - Python](src/azure-cognitive-services-text-analytics-python)
+  - QnA Maker (coming soon)
+
+- Vision
+  - Computer Vision (coming soon)
+  - Custom Vision (coming soon)
+  - Face (coming soon)
+  - Form Recognizer (coming soon)
+
+#### [Bing Search APIs](https://www.microsoft.com/en-us/bing/apis)
+
+- Web Search (coming soon)
+- Visual Search (coming soon)
 
 #### Security
 
