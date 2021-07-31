@@ -11,4 +11,18 @@ A React project showcasing React's Context, which provides a way to pass data th
 - React v11
 - React Router
 - Material UI
+- Vite
 
+## Project setup & usage
+
+Install dependencies:
+
+```bash
+yarn
+```
+
+Run development server:
+
+```bash
+yarn dev
+```
