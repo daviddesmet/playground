@@ -1,0 +1,124 @@
+﻿@page
+@model TwoFactorAuthenticationModel
+@{
+    ViewData["Title"] = "Two-factor authentication (2FA)";
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+
+<partial name="_StatusMessage" for="StatusMessage" />
+<h4>@ViewData["Title"]</h4>
+@if (Model.Is2faEnabled)
+{
+    if (Model.RecoveryCodesLeft == 0)
+    {
+        <div class="alert alert-danger">
+            <strong>You have no recovery codes left.</strong>
+            <p>You must <a asp-page="./GenerateRecoveryCodes">generate a new set of recovery codes</a> before you can log in with a recovery code.</p>
+        </div>
+    }
+    else if (Model.RecoveryCodesLeft == 1)
+    {
+        <div class="alert alert-danger">
+            <strong>You have 1 recovery code left.</strong>
+            <p>You can <a asp-page="./GenerateRecoveryCodes">generate a new set of recovery codes</a>.</p>
+        </div>
+    }
+    else if (Model.RecoveryCodesLeft <= 3)
+    {
+        <div class="alert alert-warning">
+            <strong>You have @Model.RecoveryCodesLeft recovery codes left.</strong>
+            <p>You should <a asp-page="./GenerateRecoveryCodes">generate a new set of recovery codes</a>.</p>
+        </div>
+    }
+
+    if (Model.IsMachineRemembered)
+    {
+        <form method="post" style="display: inline-block">
+            <button type="submit" class="btn btn-primary">Forget this browser</button>
+        </form>
+    }
+    <p>
+        <a asp-page="./Disable2fa" class="btn btn-primary">Disable 2FA</a>
+        <a asp-page="./GenerateRecoveryCodes" class="btn btn-primary">Reset recovery codes</a>
+    </p>
+}
+
+<div class="alert alert-info">
+    <strong>TOTP client and server time skew</strong>
+    <p>
+        TOTP (Time-based One-Time Password) authentication depends on both the server and authenticator device having an accurate time.
+        Tokens only last for 30 seconds. If TOTP 2FA logins are failing, check that the server time is accurate, and preferably synchronized to an accurate NTP service.
+    </p>
+</div>
+
+<h5>Authenticator app</h5>
+<p>
+    @if (!Model.HasAuthenticator)
+    {
+        <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">Add authenticator app</a>
+    }
+    else
+    {
+        <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">Setup authenticator app</a>
+        <a id="reset-authenticator" asp-page="./ResetAuthenticator" class="btn btn-primary">Reset authenticator app</a>
+    }
+</p>
+
+@if (Model.HasAuthenticator)
+{
+    <h5>Security keys</h5>
+    <div>
+        <p>
+            Security keys are hardware devices that can be used as your second factor of authentication.
+            When signing in, you press a button on the device rather than typing a verification code.
+            Security keys use the <a href="https://fidoalliance.org/" target="_blank">FIDO2</a> standard.
+        </p>
+    </div>
+
+    @if (Model.HasSecurityKey)
+    {
+        <form method="post">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Device Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.SecurityKeys)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DeviceName)
+                            </td>
+                            <td>
+                                <button class="btn btn-link btn-sm" type="submit" asp-page-handler="removekey" asp-route-id="@item.Id">
+                                    Remove
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>
+    }
+
+    <div class="row">
+        <div class="col-md-6">
+            <form id="add-key" asp-page-handler="addkey" method="post">
+                <div class="form-group">
+                    @*<label asp-for="Input.DeviceName" class="control-label">Device Name</label>*@
+                    <input asp-for="Input.DeviceName" class="form-control" autocomplete="off" placeholder="Device Name" />
+                    <span asp-validation-for="Input.DeviceName" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Add security key</button>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            </form>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

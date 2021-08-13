@@ -38,9 +38,10 @@ My personal playground with proof of concept (PoC) projects, code examples, proj
 #### Security
 
 - [TOTP - ASP.NET Core 2.2 + Vue.js](src/aspnet-core-vue-security-totp) (outdated)
-- [TOTP & WebAuthn - ASP.NET Core 5.0 with Razor Pages](src/aspnet-core-razor-pages-security-webauthn)
-- TOTP & WebAuthn - ASP.NET Core 5.0 with Blazor (coming soon)
-- TOTP & WebAuthn - ASP.NET Core 5.0 with Vue.js (coming soon)
+- [TOTP & FIDO2 - ASP.NET Core 5.0 with Razor Pages](src/aspnet-core-razor-pages-security-webauthn)
+- [TOTP & FIDO2 Passwordless Auth - ASP.NET Core 5.0 with Razor Pages](src/aspnet-core-razor-pages-security-webauthn-passwordless)
+- TOTP & FIDO2 - ASP.NET Core 5.0 with Blazor (coming soon)
+- TOTP & FIDO2 - ASP.NET Core 5.0 with Vue.js (coming soon)
 
 #### React
 

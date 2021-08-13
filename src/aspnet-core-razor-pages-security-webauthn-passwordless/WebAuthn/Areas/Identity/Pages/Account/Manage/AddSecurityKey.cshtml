@@ -1,0 +1,256 @@
+﻿@page
+@model AddSecurityKeyModel
+@{
+    ViewData["Title"] = "Add Security Key";
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+<h4>@ViewData["Title"]</h4>
+<div class="notification is-danger" style="display:none">
+    Please note: Your browser does not seem to support WebAuthn yet. <a href="https://caniuse.com/#search=webauthn" target="_blank">Supported browsers</a>.
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <form action="/AddSecurityKey" method="post" id="register">
+            <div class="field">
+                <label class="label">Username</label>
+                <div class="control has-icons-left has-icons-right">
+                    <input class="form-control" type="text" readonly placeholder="email" value="@User.Identity.Name" name="username" required>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Device Name</label>
+                <div class="control has-icons-left has-icons-right">
+                    <input class="form-control" type="text" readonly placeholder="devicename" value="@Model.KeyChallenge.DeviceFriendlyName" name="devicename" required>
+                </div>
+            </div>
+
+            <div class="field" style="margin-top:10px;">
+                <div class="control">
+                    <button class="btn btn-primary">Register security key</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="~/js/helpers.js"></script>
+<script src="~/js/instant.js"></script>
+<script>
+    document.getElementById('register').addEventListener('submit', handleRegisterSubmit);
+
+    async function handleRegisterSubmit(event) {
+        event.preventDefault();
+
+        // Challenge
+        // The challenge is a buffer of cryptographically random bytes generated on the server, and is needed to prevent "replay attacks"
+        let challengeBytesAsString = atob("@Html.Raw(Model.KeyChallenge.Base64Challenge)");
+        let challenge = new Uint8Array(challengeBytesAsString.length);
+        for (let i = 0; i < challengeBytesAsString.length; i++) {
+            challenge[i] = challengeBytesAsString.charCodeAt(i);
+        }
+
+        // Relying party details
+        // This stands for “relying party”; it can be considered as describing the organization responsible for registering and authenticating the user.
+        let rp = {
+            id: "@Model.KeyChallenge.RelyingPartyId",
+            name: "FIDO2 - Core"
+        };
+
+        // User handle
+        // This is information about the user currently registering.
+        let userHandleBytesAsString = atob("@Html.Raw(Model.KeyChallenge.Base64UserHandle)");
+        var userHandle = Uint8Array.from(userHandleBytesAsString, c => c.charCodeAt(0))
+
+        let user = {
+            name: "@Model.KeyChallenge.UserId",
+            displayName: "@Model.KeyChallenge.UserId",
+            id: userHandle
+        };
+
+        // Supported algorithms, ordered by preference
+        // This is an array of objects describing what public key types are acceptable to a server.
+        // The `alg` is a number described in the COSE registry; for example, `-7` indicates that the server accepts Elliptic Curve public keys using a SHA-256 signature algorithm.
+        let pubKeyCredParams = [
+            {
+                type: "public-key",
+                alg: -8
+            },
+            {
+                type: "public-key",
+                alg: -259
+            },
+            {
+                type: "public-key",
+                alg: -39
+            },
+            {
+                type: "public-key",
+                alg: -36
+            },
+            {
+                type: "public-key",
+                alg: -258
+            },
+            {
+                type: "public-key",
+                alg: -38
+            },
+            {
+                type: "public-key",
+                alg: -35
+            },
+            {
+                type: "public-key",
+                alg: -7
+            },
+            {
+                type: "public-key",
+                alg: -257
+            },
+            {
+                type: "public-key",
+                alg: -37
+            },
+            {
+                type: "public-key",
+                alg: -7
+            },
+            {
+                type: "public-key",
+                alg: -65535
+            }
+        ];
+
+        // This optional object helps relying parties make further restrictions on the type of authenticators allowed for registration.
+        // In this example we are indicating the credential is a required key and also that user verification is required. This will tell the device to store the user credentials in it.
+        let authenticatorSelection = {
+            requireResidentKey: true,
+            userVerification: "required"
+        };
+
+        // The time (in milliseconds) that the user has to respond to a prompt for registration before an error is returned.
+        //let timeout = 60000;
+
+        // The attestation data that is returned from the authenticator has information that could be used to track users.
+        // This option allows servers to indicate how important the attestation data is to this registration event.
+        // A value of "none" indicates that the server does not care about attestation.
+        // A value of "indirect" means that the server will allow for anonymized attestation data.
+        // "direct" means that the server wishes to receive the attestation data from the authenticator.
+        //let attestation = "direct";
+
+        // The publicKeyCredentialCreationOptions object contains a number of required and optional fields
+        // that a server specifies to create a new credential for a user.
+        let makeCredentialOptions = { challenge, rp, user, pubKeyCredParams, authenticatorSelection };
+
+        console.log("Credential Options", makeCredentialOptions);
+
+        /*
+        Swal.fire({
+            title: 'Registering...',
+            text: 'Tap your security key to finish registration.',
+            imageUrl: "/images/securitykey.min.svg",
+            showCancelButton: true,
+            showConfirmButton: false,
+            focusConfirm: false,
+            focusCancel: false
+        });
+        */
+
+        console.log("Creating PublicKeyCredential...");
+        console.log(navigator);
+        console.log(navigator.credentials);
+
+        // The credential object returned from the create() call
+        // is an object containing the public key and other attributes used to validate the registration event.
+        let newCredential;
+        try {
+            newCredential = await navigator.credentials.create({ publicKey: makeCredentialOptions });
+        } catch (e) {
+            var msg = "Could not create credentials in browser. Probably because the username is already registered with your authenticator. Please change username or authenaticator.";
+            console.error(msg, e);
+            showErrorAlert(msg, e);
+        }
+
+        console.log("PublicKeyCredential Created", newCredential);
+
+        try {
+            registerNewCredential(newCredential);
+
+        } catch (e) {
+            showErrorAlert(err.message ? err.message : err);
+        }
+    }
+
+    async function registerNewCredential(credentials) {
+        // base64 encode array buffers
+        let encodedCredentials = {
+            // The ID for the newly generated credential; it will be used to identify the credential when authenticating the user.
+            id: credentials.id,
+            // The ID again, but in binary form
+            rawId: btoa(String.fromCharCode.apply(null, new Uint8Array(credentials.rawId))),
+            // `public-key`
+            type: credentials.type,
+            response: {
+                // This object contains the credential public key,
+                // an optional attestation certificate, and other metadata used also to validate the registration event.
+                attestationObject:
+                    btoa(String.fromCharCode.apply(null, new Uint8Array(credentials.response.attestationObject))),
+                // This represents data passed from the browser to the authenticator
+                // in order to associate the new credential with the server and browser.
+                clientDataJSON:
+                    btoa(String.fromCharCode.apply(null, new Uint8Array(credentials.response.clientDataJSON)))
+            }
+        };
+
+        let response;
+        try {
+            response = await registerCredentialWithServer(encodedCredentials);
+        } catch (e) {
+            showErrorAlert(e);
+        }
+
+        //console.log("Credential Object", response);
+
+        // show error
+        if (response.status !== 200) {
+            let msg = await response.json();
+            console.log("Error creating credential");
+            console.log(msg);
+            showErrorAlert(msg);
+            return;
+        }
+
+        /*
+        // show success
+        Swal.fire({
+            title: 'Registration Successful!',
+            text: 'You\'ve registered successfully.',
+            type: 'success',
+            timer: 2000
+        });
+        */
+
+        window.location.href = "/Identity/Account/Manage/ShowRecoveryCodes";
+    }
+
+    async function registerCredentialWithServer(formData) {
+        let response = await fetch('/CompleteSecurityKeyRegistration', {
+            method: 'POST', // or 'PUT'
+            body: JSON.stringify(formData), // data can be `string` or {object}!
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        });
+
+        console.log("Response from /CompleteSecurityKeyRegistration", response);
+        //console.log("JSON Response from /CompleteSecurityKeyRegistration", await response.json());
+
+        //let data = await response.json();
+        //return data;
+
+        return response;
+    }
+</script>

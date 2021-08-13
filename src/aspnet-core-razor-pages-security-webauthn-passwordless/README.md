@@ -1,4 +1,4 @@
-# ASP.NET Core 5.0: TOTP & WebAuthn Playground
+# ASP.NET Core 5.0: FIDO2 Passwordless Auth Playground
 
 ## Features
 
@@ -14,6 +14,7 @@ An ASP.NET Core 5.0 MVC featuring InMemory storage with EF Core, Identity and FI
 The app will be served on:
 
 ```
+https://dev.local
 https://localhost:443/
 http://localhost:80/
 ```
