@@ -1,1 +1,0 @@
-export const UPDATE_TIMELINE = "UPDATE_TIMELINE";
